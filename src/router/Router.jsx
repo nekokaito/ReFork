@@ -7,11 +7,13 @@ import Manage_Food from "../components/layout/foods/manage_foods/Manage_Food";
 import Food_Request from "../components/layout/foods/food_request/Food_Request";
 import Login from "../components/layout/accounts/login/Login";
 import SignUp from "../components/layout/accounts/signup/SignUp";
+import Error from "../components/layout/error/Error";
 
 const Router =  createBrowserRouter([
     {
       path: "/",
       element: <Root></Root>,
+      errorElement: <Error></Error>,
       children: [
         {
           path: "/",
