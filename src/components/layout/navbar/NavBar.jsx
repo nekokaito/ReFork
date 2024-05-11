@@ -20,11 +20,12 @@ const NavBar = () => {
     setOpen(inOpen);
   };
    
+
   
 
 	const location = useLocation();
     return (
-        <div>
+        <nav>
             <header className="p-4 bg-[#64748b41] text-white font-jaro">
 	<div className="container  flex justify-between gap-2 h-16 mx-auto md:justify-center md:space-x-8">
 		<ul className="items-stretch  gap-2 hidden space-x-3 md:flex">
@@ -52,11 +53,13 @@ const NavBar = () => {
 				{
 					user? (
 						<>
-					<div tabIndex={0} role="button" rel="noopener noreferrer" className={`flex items-center px-4 -mb-1 border-b-2 dark:border- hover:text-[#7ba3ff] hover:border-[#7ba3ff] text-white}  `}>{user?.displayName}</div>
+					<div tabIndex={0} role="button" rel="noopener noreferrer" className={`flex items-center px-4 -mb-1 border-b-2 dark:border- hover:text-[#7ba3ff] hover:border-[#7ba3ff] text-white}  `}>{user?.displayName.split(' ')[0]}</div>
 					<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-    <li><a>{user?.displayName}</a></li>
+    <li><span className='flex items-center gap-5'><a>{user?.displayName}</a> <img className='rounded-full w-10' src={user?.photoURL} alt="" /></span> </li>
     <li><Link onClick={logOut}>Log Out</Link></li>
+	
   </ul>
+ 
   </>
 					
 				)  : (<NavLink rel="noopener noreferrer" to="/login" className={`flex items-center px-4 -mb-1 border-b-2 dark:border- ${ location.pathname === '/login'? 'text-[#7ba3ff] border-[#7ba3ff]': 'text-white'}  `}>Login</NavLink>)
@@ -73,7 +76,7 @@ const NavBar = () => {
 			</svg>
 		</button>
        <Drawer color="primary"
-  variant="solid" open={open} onClose={toggleDrawer(false)}>
+  variant="solid"  anchor="right" open={open} onClose={toggleDrawer(false)}>
         <Box
           role="presentation"
           onClick={toggleDrawer(false)}
@@ -97,7 +100,7 @@ const NavBar = () => {
     </Box>
 	</div>
 </header>
-        </div>
+        </nav>
     );
 };
 
