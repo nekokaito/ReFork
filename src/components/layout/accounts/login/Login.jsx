@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
 
@@ -23,10 +24,24 @@ const Login = () => {
          const email =  form.get('email');
          const password =  form.get('password');
          logIn (email, password)
-         .then (() => {
+         .then (result => {
               
-              navigation(location?.state ? location.state : '/');
-              toast.success('Successfully Login!');
+            
+            //   toast.success('Successfully Login!');
+            const loggedUser = result.user;
+             console.log(loggedUser);
+             const user = {email};
+             axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+             .then(res=> {
+                if(res.data.success) {
+  navigation(location?.state ? location.state : '/');
+                }
+             })
+             .catch(error => {
+                console.error('Error in Axios request:', error);
+            });
+
+
          })
          .catch (error => setErrorLogin(error.toString()))
        }
