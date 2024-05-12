@@ -3,6 +3,7 @@
 const Footer = () => {
     return (
         <footer className="py-6 bg-[#64748b41] text-white font-jaro">
+            
         <div className="container px-6 mx-auto space-y-6 divide-y dark:divide-gray-600 md:space-y-12 divide-opacity-50">
         <a rel="noopener noreferrer" href="#" className="flex justify-center space-x-3 md:justify-start">
                         <div className="flex items-center justify-center w-12 h-12 rounded-full">

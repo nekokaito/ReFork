@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import ReactShowMoreText from "react-show-more-text";
 import { FaLocationArrow } from "react-icons/fa6";
 import { MdProductionQuantityLimits } from "react-icons/md";
@@ -15,7 +16,7 @@ const FoodCard = ({food}) => {
     <img className="p-2 rounded-3xl" src={food_image} alt={food_name} />
     </figure>
   <div className="card-body">
-    <h2 className="card-title font-jaro">{food_name}</h2>
+    <h2 title={food_name} className="card-title font-jaro line-clamp-1">{food_name}</h2>
     <div className="flex gap-2 items-center"> 
         <div>
            <img className="w-6 rounded-full" src={user_photo} alt={user_name} />
@@ -53,7 +54,7 @@ const FoodCard = ({food}) => {
        </div>
     </div>
    
-    <div className="card-actions justify-center">
+    <div className="card-actions justify-center mt-auto">
      <Link to={`/food/${_id}`}><button className="btn btn-primary">View Details</button></Link> 
     </div>
   </div>

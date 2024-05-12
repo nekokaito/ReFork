@@ -3,7 +3,7 @@
 const FoodDetails = () => {
     return (
         <div>
-            
+            asa
         </div>
     );
 };

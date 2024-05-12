@@ -68,8 +68,10 @@ const Login = () => {
        const handleGithubLogIn = (e) => {
          e.preventDefault();
          githubLogin()
-         .then (() => {
+         .then ((userData) => {
+            console.log(userData);
            navigation(location?.state ? location.state : '/');
+
            toast.success('Successfully Login!');
       })
           .catch (error => setErrorLogin(error.toString()))

@@ -2,12 +2,14 @@ import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../provider/AuthProvider";
+import { apiData } from "../../../../provider/Api";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 const SignUp = () => {
     const {createUser, googleLogin, githubLogin} = useContext(AuthContext)
    const [errorReg, setErrorReg] = useState('');
-   
 
    const location = useLocation();
    const navigation = useNavigate();
@@ -64,14 +66,27 @@ const SignUp = () => {
     });
 
    }
-const handleGoogleLogIn = (e) => {
-        e.preventDefault();
-        googleLogin()
-        .then (() => {
+   const handleGoogleLogIn = (e) => {
+    e.preventDefault();
+    googleLogin()
+    .then ((userData) => {
+       const email = userData.user.email;
+       const user = {email}
+       axios.post(`${apiData}/jwt`, user, {withCredentials: true})
+       .then(res=> {
+          if(res.data.success) {
           navigation(location?.state ? location.state : '/');
-     })
-         .catch (error => console.log(error))
-      }
+          toast.success('Successfully Login!');
+          }
+       })
+       .catch(error => {
+        setErrorReg(error.toString());
+      });
+
+      
+ })
+    
+  }
 
       const handleGithubLogIn = (e) => {
         e.preventDefault();

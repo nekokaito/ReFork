@@ -26,10 +26,13 @@ const AvailableFoods = () => {
      
 
     return (
-        <div>
-           {
+        <div className="flex">
+            <div className="grid p-10 m-2 gap-5 container mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-5">
+            {
             foods.map(food => <FoodCard key={food._id} food={food} ></FoodCard> )
            } 
+            </div>
+           
         </div>
     );
 };

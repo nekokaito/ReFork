@@ -1,4 +1,5 @@
 import Header from "../../tools/header/Header";
+import FoodItem from "./FoodItem";
 import Support from "./Support";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <div>
             <Header></Header>
             <Support></Support>
+            <FoodItem></FoodItem>
         </div>
     );
 };
