@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import toast from 'react-hot-toast';
 import axios from "axios";
+import { apiData } from "../../../../provider/Api";
 
 const Login = () => {
 
@@ -27,7 +28,7 @@ const Login = () => {
          logIn (email, password)
          .then (() => {
              const user = {email};
-             axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+             axios.post(`${apiData}/jwt`, user, {withCredentials: true})
              .then(res=> {
                 if(res.data.success) {
                 navigation(location?.state ? location.state : '/');
@@ -48,7 +49,7 @@ const Login = () => {
          .then ((userData) => {
             const email = userData.user.email;
             const user = {email}
-            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            axios.post(`${apiData}/jwt`, user, {withCredentials: true})
             .then(res=> {
                if(res.data.success) {
                navigation(location?.state ? location.state : '/');

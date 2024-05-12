@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import axios from 'axios';
-import { useQuery } from "@tanstack/react-query";
-
+import { apiData } from "../../../../provider/Api";
+import toast from 'react-hot-toast';
 const AddFood = () => {
 
    const {user} = useContext(AuthContext);
@@ -16,23 +16,24 @@ const AddFood = () => {
         const food_image= form.food_image.value;
         const date = form.date.value;
         const status = form.status.value;
+		const quantity = form.quantity.value;
         const user_name = user?.displayName;
         const user_photo = user?.photoURL;
         const user_email = user?.email;
+      
+        const foodData = {food_name, notes, location, food_image, date, status, quantity, user_name, user_photo, user_email};
 
-        const food_data = {food_name, notes, location, food_image, date, status, user_name, user_photo, user_email};
-        
-       
-    //    const {data} = useQuery (
-	// 	{
-	// 		queryKey : ['food_data'],
-	// 		queryFn: async () => {
-				
-	// 		}
-	// 	})
-
-
-        console.log('working');
+		axios
+		.post(`${apiData}/add_food`, foodData)
+		.then(() => {
+		toast.success("Food added successfully");
+		form.reset("");
+		}) 
+		.catch((err) => {
+		console.log(err);
+		toast.error("Food not added");
+		});
+	
      }
     
     return (
@@ -72,8 +73,8 @@ const AddFood = () => {
 					<input id="location" name="location" type="text" placeholder="#123, Street, Address, Zip" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" />
 				</div>
 				<div className="col-span-full sm:col-span-2">
-					<label  className="text-sm">Expired Date/Time</label>
-					<input id="date" name="date" type="datetime-local" placeholder="" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" />
+					<label  className="text-sm">Expired Date</label>
+					<input id="date" name="date" type="date" placeholder="" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" />
 				</div>
 				<div className="col-span-full sm:col-span-2">
 					<label  className="text-sm">Food Status</label>
@@ -83,8 +84,8 @@ const AddFood = () => {
                     </select>
 				</div>
 				<div className="col-span-full sm:col-span-2">
-					<label  className="text-sm">Food Script (optional)</label>
-					<input id="script" type="text" name="script" placeholder="#SMY890" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" />
+					<label  className="text-sm">Food Quantity</label>
+					<input id="quantity" type="number" name="quantity" placeholder="1-100" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" />
 				</div>
                 <button type="submit" className="btn w-full hidden md:flex bg-[#7ba3ff]">Add Food</button>
 			</div>
