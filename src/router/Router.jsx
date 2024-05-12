@@ -8,6 +8,7 @@ import Food_Request from "../components/layout/foods/food_request/Food_Request";
 import Login from "../components/layout/accounts/login/Login";
 import SignUp from "../components/layout/accounts/signup/SignUp";
 import Error from "../components/layout/error/Error";
+import Private from "../provider/Private";
 
 const Router =  createBrowserRouter([
     {
@@ -26,7 +27,7 @@ const Router =  createBrowserRouter([
         },
         {
           path: "/add_food",
-          element: <AddFood></AddFood>
+          element: <Private><AddFood></AddFood></Private>  
         },
         {
           path: "/manage_food",
