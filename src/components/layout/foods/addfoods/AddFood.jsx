@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
-
+import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
 
 const AddFood = () => {
 
    const {user} = useContext(AuthContext);
      
-     const handleSubmit = (e) => {
+     const handleSubmit =  (e) => {
         e.preventDefault();
         const form = e.target;
         const food_name = form.food_name.value;
@@ -21,8 +22,14 @@ const AddFood = () => {
 
         const food_data = {food_name, notes, location, food_image, date, status, user_name, user_photo, user_email};
         
-        console.log(food_data);
-
+       
+    //    const {data} = useQuery (
+	// 	{
+	// 		queryKey : ['food_data'],
+	// 		queryFn: async () => {
+				
+	// 		}
+	// 	})
 
 
         console.log('working');
