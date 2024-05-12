@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
+import toast from 'react-hot-toast';
 import axios from "axios";
 
 const Login = () => {
@@ -24,17 +25,13 @@ const Login = () => {
          const email =  form.get('email');
          const password =  form.get('password');
          logIn (email, password)
-         .then (result => {
-              
-            
-            //   toast.success('Successfully Login!');
-            const loggedUser = result.user;
-             console.log(loggedUser);
+         .then (() => {
              const user = {email};
              axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
              .then(res=> {
                 if(res.data.success) {
-  navigation(location?.state ? location.state : '/');
+                navigation(location?.state ? location.state : '/');
+                toast.success('Successfully Login!');
                 }
              })
              .catch(error => {
@@ -48,9 +45,21 @@ const Login = () => {
        const handleGoogleLogIn = (e) => {
          e.preventDefault();
          googleLogin()
-         .then (() => {
-           navigation(location?.state ? location.state : '/');
-           toast.success('Successfully Login!');
+         .then ((userData) => {
+            const email = userData.user.email;
+            const user = {email}
+            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            .then(res=> {
+               if(res.data.success) {
+               navigation(location?.state ? location.state : '/');
+               toast.success('Successfully Login!');
+               }
+            })
+            .catch(error => {
+               console.error('Error in Axios request:', error);
+           });
+
+           
       })
           .catch (error => setErrorLogin(error.toString()))
        }
