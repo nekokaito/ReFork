@@ -11,6 +11,7 @@ import Error from "../components/layout/error/Error";
 import Private from "../provider/Private";
 import FoodDetails from "../components/layout/foods/food_details/FoodDetails";
 import { apiData } from "../provider/Api";
+import UpdateFood from "../components/layout/foods/update_food/UpdateFood";
 
 const Router =  createBrowserRouter([
     {
@@ -51,6 +52,11 @@ const Router =  createBrowserRouter([
           path: "/food/:_id",
           element: <FoodDetails></FoodDetails>,
           loader: () => fetch(`${apiData}/foods`)
+        },
+        {
+          path: "/update/:_id",
+          element: <UpdateFood></UpdateFood>,  
+             
         }
       ]
     },
