@@ -26,7 +26,7 @@ const UpdateFood = () => {
  ,[])
 
 
- const {food_name, notes, location, food_image, date, status, quantity, user_name, user_photo, user_email} = foods;
+ const {food_name, notes, location, food_image, date, status, quantity} = foods;
    
      const handleSubmit =  (e) => {
         e.preventDefault();

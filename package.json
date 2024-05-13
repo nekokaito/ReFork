@@ -30,7 +30,8 @@
     "react-router-dom": "^6.23.0",
     "react-show-more-text": "^1.7.1",
     "sort-by": "^1.2.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "sweetalert2": "^11.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
