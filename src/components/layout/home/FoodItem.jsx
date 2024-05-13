@@ -1,9 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { apiData } from "../../../provider/Api";
+import Slider from "../../tools/slider/Slider";
 
 
 const FoodItem = () => {
+    const [foods, setFoods] = useState([]);
+  
+    useEffect(()=> {
+       const dataLoad = async () => {
+           try {
+               const res = await axios.get(`${apiData}/foods`);
+               
+               setFoods(res.data);
+           }
+           catch {
+               console.log(console.error);
+           }
+       } 
+       dataLoad();
+    } 
+    ,[])
+
     return (
         <div>
-            
+            <div>
+                <Slider></Slider>
+            </div>
         </div>
     );
 };

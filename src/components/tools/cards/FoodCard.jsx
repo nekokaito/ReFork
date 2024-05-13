@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */
+
 import ReactShowMoreText from "react-show-more-text";
 import { FaLocationArrow } from "react-icons/fa6";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { BsCalendar2Date } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const FoodCard = ({food}) => {
     const {_id , food_name, notes, location, food_image, date, status, quantity, user_name, user_photo} = food;
@@ -11,8 +12,10 @@ const FoodCard = ({food}) => {
     const formattedDate = new Date(date).toLocaleDateString('en-GB', options);
 
     return (
-        <div className="card w-72 bg-[#64748b41] font-jaro">
-  <figure className="">
+        <motion.div  initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }} layout className="card  bg-[#64748b41] font-jaro">
+  <figure className="p-6">
     <img className="p-2 rounded-3xl" src={food_image} alt={food_name} />
     </figure>
   <div className="card-body">
@@ -55,10 +58,10 @@ const FoodCard = ({food}) => {
     </div>
    
     <div className="card-actions justify-center mt-auto">
-     <Link to={`/food/${_id}`}><button className="btn btn-primary">View Details</button></Link> 
+     <Link to={`/food/${_id}`}><button className="btn bg-[#7ba3ff] text-white hover:bg-[#537ad4]">View Details</button></Link> 
     </div>
   </div>
-</div>
+</motion.div>
     );
 };
 
