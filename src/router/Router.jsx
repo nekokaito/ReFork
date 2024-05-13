@@ -10,6 +10,7 @@ import SignUp from "../components/layout/accounts/signup/SignUp";
 import Error from "../components/layout/error/Error";
 import Private from "../provider/Private";
 import FoodDetails from "../components/layout/foods/food_details/FoodDetails";
+import { apiData } from "../provider/Api";
 
 const Router =  createBrowserRouter([
     {
@@ -48,7 +49,8 @@ const Router =  createBrowserRouter([
         },
         {
           path: "/food/:_id",
-          element: <FoodDetails></FoodDetails>
+          element: <FoodDetails></FoodDetails>,
+          loader: () => fetch(`${apiData}/foods`)
         }
       ]
     },

@@ -23,9 +23,9 @@ const FoodItem = () => {
     ,[])
 
     return (
-        <div>
+        <div className="mx-10">
             <div>
-                <Slider></Slider>
+                <Slider foods={foods}></Slider>
             </div>
         </div>
     );
