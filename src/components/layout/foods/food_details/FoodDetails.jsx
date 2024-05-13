@@ -5,13 +5,12 @@ import { MdProductionQuantityLimits } from "react-icons/md";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useLoaderData, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { apiData } from "../../../../provider/Api";
 import Modal from '@mui/material/Modal';
-import { AuthContext } from "../../../../provider/AuthProvider";
-import { useContext } from "react";
 import toast from 'react-hot-toast';
+import { AuthContext } from "../../../../provider/AuthProvider";
 
 const FoodDetails = () => {
   const {user} = useContext(AuthContext);
@@ -45,11 +44,11 @@ const FoodDetails = () => {
       const options = { day: '2-digit', month: 'short', year: 'numeric' };
       const currentDate = new Date().toLocaleDateString('en-GB', options);
       const user_name = form.user_name.value;
-      const user_email = form.user_email.value;
+      const email = user?.email;
       const quantity = form.quantity.value;
       const status = 'requested'
-    const foodData = {food_name, notes, location, date, status, user_name, user_email, currentDate};
-    const upData = {food_name, notes, location, date, status, user_name, user_email, currentDate, quantity, food_image };
+    const foodData = {food_name, notes, location, date, status, user_name, email, currentDate};
+    const upData = {food_name, notes, location, date, status, currentDate, quantity, food_image};
     console.log(foodData)
   axios
   .post(`${apiData}/request_food`, foodData)
@@ -73,7 +72,7 @@ const FoodDetails = () => {
   });
 }
 
-  
+  console.log(user?.email);
 
     return (
         <motion.div  initial={{ opacity: 1 }}

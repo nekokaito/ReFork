@@ -6,8 +6,8 @@ const Slider = ({foods}) => {
     // const dup = [...ar, ...ar]
     return (
         
-        <div className="relative w-full overflow-hidden">
-            <motion.div animate={{x:['-100%','0%'], transition: {ease: 'linear', duration: 10, repeat: Infinity, }}} className="flex justify-center gap-5">
+        <div className="relative mx-10 overflow-hidden">
+            <motion.div animate={{x:['-100%','0%'], transition: {ease: 'linear', duration: 5}}} className="flex flex-col md:flex-row justify-center gap-5">
             {
                 foods.slice(0, 6).map( (food) => <FoodCard key={food._id} food={food}></FoodCard>)
             }

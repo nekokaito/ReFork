@@ -23,7 +23,7 @@ const FoodItem = () => {
     ,[])
 
     return (
-        <div className="mx-10">
+        <div className="mx-10 my-48">
             <div>
                 <Slider foods={foods}></Slider>
             </div>
