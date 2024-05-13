@@ -5,13 +5,13 @@ import { MdProductionQuantityLimits } from "react-icons/md";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useLoaderData, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { apiData } from "../../../../provider/Api";
 import Modal from '@mui/material/Modal';
 import { AuthContext } from "../../../../provider/AuthProvider";
 import { useContext } from "react";
-
+import toast from 'react-hot-toast';
 
 const FoodDetails = () => {
   const {user} = useContext(AuthContext);
@@ -24,7 +24,7 @@ const FoodDetails = () => {
     const food = foods.find(food => food._id == _id);
     console.log(_id)
     console.log(food)
-    const {food_name, notes, location, food_image, date, status, quantity, user_name, user_photo} = food;
+    const {food_name, notes, location, food_image, date, status, quantity, user_name, user_photo, user_email} = food;
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-GB', options);
     const style = {
@@ -33,6 +33,47 @@ const FoodDetails = () => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
     };
+    
+    const handleSubmit =  (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const food_name = form.food_name.value;
+      const food_image = form.food_image.value;
+      const notes = form.notes.value;
+      const location = form.location.value;
+      const date = form.date.value;
+      const options = { day: '2-digit', month: 'short', year: 'numeric' };
+      const currentDate = new Date().toLocaleDateString('en-GB', options);
+      const user_name = form.user_name.value;
+      const user_email = form.user_email.value;
+      const quantity = form.quantity.value;
+      const status = 'requested'
+    const foodData = {food_name, notes, location, date, status, user_name, user_email, currentDate};
+    const upData = {food_name, notes, location, date, status, user_name, user_email, currentDate, quantity, food_image };
+    console.log(foodData)
+  axios
+  .post(`${apiData}/request_food`, foodData)
+  .then(() => {
+  toast.success("Request added successfully");
+  form.reset("");
+  }) 
+  .catch((err) => {
+  console.log(err);
+  toast.error("Request not added");
+  });
+
+  axios.put(`${apiData}/foods/${_id}`, upData)
+  .then(() => {
+    console.log('Update successful');
+    
+  })
+  .catch(error => {
+    console.error('Error updating data:', error);
+    
+  });
+}
+
+  
 
     return (
         <motion.div  initial={{ opacity: 1 }}
@@ -93,33 +134,22 @@ const FoodDetails = () => {
   aria-labelledby="modal-modal-title"
   aria-describedby="modal-modal-description"
 >
-  <div style={style} className="bg-black mt-10 w-full md:w-3/4 border rounded-2xl">
+  <div style={style} className="bg-[#537ad4]  mt-20 w-full md:w-3/4 border rounded-2xl">
   <div className="">
             <section className="p-6 ">
-	<form noValidate="" action="" className="container flex flex-col mx-auto space-y-12">
+	<form onSubmit={handleSubmit} noValidate="" action="" className="container flex flex-col mx-auto space-y-12">
+  <p className="text-5xl font-jaro"> &gt; Request</p>
 		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">
-			<div className="space-y-2 col-span-full lg:col-span-1 flex flex-col gap-5">
-				<p className="text-5xl font-jaro"> &gt; Request</p>
-				<div className="">
-                <div className="avatar online">
-  <div className="w-24 rounded-full">
-    <img src={user?.photoURL} />
-  </div>
-</div>
-<p className="text-sm font-light font-roboto">Donator Information</p>
-<p className="text-2xl font-jaro">{user?.displayName}</p>
-<p className="text-sm font-jaro">{user?.email}</p>
-
-</div>
-			</div>
+    
+			
 			<div className="grid grid-cols-6 gap-10 col-span-full lg:col-span-3 font-jaro">
 				<div className="col-span-full sm:col-span-3">
 					<label className="text-sm">Food Name</label>
-					<input id="Food_Name" name="food_name" type="text" placeholder={food_name} className="w-full h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
+					<input id="Food_Name" name="food_name" type="text" defaultValue={food_name} placeholder={food_name} className="w-full h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
 				</div>
 				<div className="col-span-full sm:col-span-3">
 					<label  className="text-sm">Food Image</label>
-					<input id="Food_Image" name="food_image" type="text" placeholder={food_image} className="w-full h-full p-2 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
+					<input id="Food_Image" name="food_image" defaultValue={food_image} type="text" placeholder={food_image} className="w-full h-full p-2 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
 				</div>
 				<div className="col-span-full sm:col-span-5">
 					<label  className="text-sm">Additional Notes</label>
@@ -127,7 +157,15 @@ const FoodDetails = () => {
 				</div>
 				<div className="col-span-full">
 					<label htmlFor="location" className="text-sm">Pick Up Location</label>
-					<input id="location" name="location" type="text" placeholder={location} className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
+					<input id="location" name="location" type="text" defaultValue={location} placeholder={location} className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
+				</div>
+        <div className="col-span-full sm:col-span-3">
+					<label className="text-sm">Donar Name</label>
+					<input id="donar_name" name="user_name" type="text" defaultValue={user_name} placeholder={user_name} className="w-full h-full rounded-md focus:ring focus:ring-opacity-75 p-2 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
+				</div>
+				<div className="col-span-full sm:col-span-3">
+					<label  className="text-sm">Donar Email</label>
+					<input id="donar_email" name="user_email" type="text" defaultValue={user_email} placeholder={user_email} className="w-full h-full p-2 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" disabled/>
 				</div>
 				<div className="col-span-full sm:col-span-2">
 					<label  className="text-sm">Expired Date</label>
@@ -137,18 +175,18 @@ const FoodDetails = () => {
 					<label  className="text-sm">Food Status</label>
 					<select id="status" name="status" type="text" placeholder="" className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" defaultValue={status} disabled>
                     <option value="available">Available</option>
-                    <option value="not Available">Not Available</option>
+                    <option value="not available">Not Available</option>
                     </select>
 				</div>
 				<div className="col-span-full sm:col-span-2">
 					<label  className="text-sm">Food Quantity</label>
-					<input id="quantity" type="number" name="quantity" placeholder={quantity} className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" disabled/>
+					<input id="quantity" type="number" name="quantity"  defaultValue={quantity} placeholder={quantity} className="w-full  h-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2" disabled/>
 				</div>
-                <button type="submit" className="btn w-full hidden md:flex bg-[#7ba3ff]">Request Food</button>
+                <button type="submit" className="btn w-full hidden md:flex bg-black hover:bg-[#262525]">Request Food</button>
 			</div>
             
 		</fieldset>
-        <button type="submit" className="btn flex md:hidden bg-[#7ba3ff]">Request Food</button>
+        <button type="submit" className="btn flex md:hidden bg-black hover:bg-[#262525]">Request Food</button>
 	</form>
 </section>
         </div>

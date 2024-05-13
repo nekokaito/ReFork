@@ -37,7 +37,7 @@ const AvailableFoods = () => {
             setLayout('col3')
         }
      }
-
+     
      const handleSearch = (e) => {
         e.preventDefault();
         const search = e.target.search.value;
@@ -45,7 +45,7 @@ const AvailableFoods = () => {
      }
     
 
-     const sortedFoods = [...foods].sort((a, b) => {
+     const sortedFoods = [...foods].filter(food => food.status === 'available').sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return sortByExpiration === true ? dateA - dateB : dateB - dateA;
