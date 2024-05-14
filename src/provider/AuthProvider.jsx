@@ -2,6 +2,8 @@
 import { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import axios from "axios";
+import { apiData } from "./Api";
 export const AuthContext = createContext(null);
 
 
@@ -41,16 +43,31 @@ const AuthProvider = ({children}) => {
           photoURL: photo,
         });
       };
-    useEffect(()=> {
-       const unSubscribe = onAuthStateChanged (auth, currentUser => {
-            setUser(currentUser);
+      useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+          if (currentUser) {
+            const userInfo = { email: currentUser.email };
+            axios
+              .post(`${apiData}/jwt`, userInfo)
+              .then((res) => {
+                if (res.data.token) {
+                  localStorage.setItem(
+                    "access-token",
+                    res.data.token
+                  );
+                  setLoading(false);
+                }
+              });
+          } else {
+            localStorage.removeItem("access-token");
             setLoading(false);
+          }
         });
         return () => {
-            unSubscribe();
-        }
-    }, [])
-
+          unSubscribe();
+        };
+      }, []);
 
     const authInfo = {user, createUser, logOut, logIn, loading, googleLogin, githubLogin, updateUserProfile}
 

@@ -34,11 +34,11 @@ const Router =  createBrowserRouter([
         },
         {
           path: "/manage_food",
-          element: <Manage_Food></Manage_Food>
+          element: <Private><Manage_Food></Manage_Food></Private>
         },
         {
           path: "/request_food",
-          element: <Food_Request></Food_Request>
+          element: <Private><Food_Request></Food_Request></Private>
         },
         {
           path: "/login",
@@ -50,7 +50,7 @@ const Router =  createBrowserRouter([
         },
         {
           path: "/food/:_id",
-          element: <FoodDetails></FoodDetails>,
+          element: <Private><FoodDetails></FoodDetails></Private>,
           loader: () => fetch(`${apiData}/foods`)
         },
         {
