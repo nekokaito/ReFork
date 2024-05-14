@@ -49,7 +49,7 @@ const AuthProvider = ({children}) => {
           if (currentUser) {
             const userInfo = { email: currentUser.email };
             axios
-              .post(`${apiData}/jwt`, userInfo)
+              .post(`${apiData}/jwt`, userInfo ,{withCredentials:true})
               .then((res) => {
                 if (res.data.token) {
                   localStorage.setItem(

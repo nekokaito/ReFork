@@ -133,7 +133,7 @@ const FoodDetails = () => {
   aria-labelledby="modal-modal-title"
   aria-describedby="modal-modal-description"
 >
-  <div style={style} className="bg-[#537ad4]  mt-20 w-full md:w-3/4 border rounded-2xl">
+  <div style={style} className="bg-[#537ad4] h-[75%] md:h-auto  w-full md:w-3/4 overflow-y-auto border rounded-2xl">
   <div className="">
             <section className="p-6 ">
 	<form onSubmit={handleSubmit} noValidate="" action="" className="container flex flex-col mx-auto space-y-12">

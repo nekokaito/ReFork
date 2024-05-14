@@ -13,9 +13,15 @@ const Food_Request = () => {
     const [requestedFood, setRequestedFood] = useState([]);
 
     useEffect(()=> {
+        const token = localStorage.getItem('access-token');
         const dataLoad = async () => {
             try {
-                const res = await axios.get(`${apiData}/foods/request_food/${user?.email}`);
+                const res = await axios.get(`${apiData}/foods/request_food/${user?.email}`, {
+                    headers: {
+                        'Authorization': `${token}`, 
+                        'Content-Type': 'application/json'
+                    }
+                });
                 
                 setRequestedFood(res.data);
             }

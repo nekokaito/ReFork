@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
+import LoadingX from "../components/tools/loading/LoadingX";
 
 const Private = ({children}) => {
    
@@ -8,7 +9,7 @@ const Private = ({children}) => {
       const location = useLocation();
       
      if(loading) {
-               return <span className="loading loading-bars loading-lg"></span>
+               return <LoadingX></LoadingX>
      }
 
      if (user) {

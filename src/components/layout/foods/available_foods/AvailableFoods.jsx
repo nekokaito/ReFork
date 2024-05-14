@@ -8,27 +8,33 @@ import { BsLayoutSplit } from "react-icons/bs";
 import { BsLayoutThreeColumns } from "react-icons/bs";
 import { BsCalendarDate } from "react-icons/bs";
 import { TbMoodSearch } from "react-icons/tb";
+import { useQuery } from "@tanstack/react-query";
+import LoadingX from "../../../tools/loading/LoadingX";
 const AvailableFoods = () => {
 
-    const [foods, setFoods] = useState([]);
+    
     const [layout, setLayout] = useState ('col3');
     const [searchQuery, setSearchQuery] = useState('');
     const [sortByExpiration, setSortByExpiration] = useState(true);
-     useEffect(()=> {
-        const dataLoad = async () => {
-            try {
-                const res = await axios.get(`${apiData}/foods_item?search=${searchQuery}`);
-                
-                setFoods(res.data);
+   
+   const { isLoading, refetch, data:foods=[] } = useQuery({
+        queryKey: ["foods"],
+        queryFn: async () => {
+          const { data } = await axios.get(
+            `${apiData}/foods_item?search=${searchQuery}`,
+            {
+              withCredentials: true,
             }
-            catch {
-                console.log(console.error);
-            }
-        } 
-        dataLoad();
-     } 
-     ,[searchQuery])
+          );
 
+          return data
+        },
+      });
+      
+      
+      if(isLoading) {
+        return <LoadingX></LoadingX>
+      }
      const changeLayout = () => {
         if (layout === 'col3') {
             setLayout('col2')

@@ -4,6 +4,7 @@ import MyFoodTable from "../../../tools/table/MyFoodTable";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import LoadingX from "../../../tools/loading/LoadingX";
 
 
 const Manage_Food = () => {
@@ -11,18 +12,32 @@ const Manage_Food = () => {
 
    
    const { isLoading, refetch, data:foods=[]} = useQuery({
+    
     queryKey: ["myfood"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${apiData}/manage_food/${user?.email}`,
-        {
-          withCredentials: true,
-        }
-      );
-      return data;
+      try {
+        const token = localStorage.getItem('access-token');
+        const { data } = await axios.get(
+          `${apiData}/manage_food/${user?.email}`,
+        
+          { headers: {
+            'Authorization': `${token}`,
+            'Content-Type': 'application/json'
+          },
+            withCredentials: true,
+          }
+        );
+        return data;
+      }
+      catch (error) {
+        throw new Error('Error fetching my food data: ' + error.message);
+      }
+      
     },
   });
-   
+  if(isLoading) {
+    return <LoadingX></LoadingX>
+  }
 
     return (
         <div className="my-10">
