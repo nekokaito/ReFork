@@ -12,7 +12,7 @@ export default function Error() {
         <div className="flex justify-center items-center flex-col gap-4">
             <div><img src="/error.gif" alt="" /></div>
             <div className=""><h1 className="text-4xl text-center font-extrabold">Error</h1>
-            <p className="text-2xl text-center">Page Not Found</p>
+            <p className="text-2xl text-center">Page Not Found !</p>
             
             </div>
             <Link to="/"><button className="btn">Back to Home</button></Link>

@@ -5,34 +5,42 @@ import { apiData } from "../../../../provider/Api";
 import { useContext } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import { useState } from "react";
+import LoadingX from "../../../tools/loading/LoadingX";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Food_Request = () => {
     
     const {user} = useContext(AuthContext);
-    const [requestedFood, setRequestedFood] = useState([]);
 
-    useEffect(()=> {
-        const token = localStorage.getItem('access-token');
-        const dataLoad = async () => {
-            try {
-                const res = await axios.get(`${apiData}/foods/request_food/${user?.email}`, {
-                    headers: {
-                        'Authorization': `${token}`, 
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                setRequestedFood(res.data);
-            }
-            catch {
-                console.log(console.error);
-            }
-        } 
-        dataLoad();
-     } 
-     ,[])
-
+  
+     const { isLoading, refetch, data:requestedFood=[]} = useQuery({
+    
+        queryKey: ["myfood"],
+        queryFn: async () => {
+          try {
+            const token = localStorage.getItem('access-token');
+            const { data } = await axios.get(
+              `${apiData}/foods/request_food/${user?.email}`,
+            
+              { headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+              },
+                withCredentials: true,
+              }
+            );
+            return data;
+          }
+          catch (error) {
+            console.error(error);
+          }
+          
+        },
+      });
+      if(isLoading) {
+        return <LoadingX></LoadingX>
+      }
 
 
     return (
