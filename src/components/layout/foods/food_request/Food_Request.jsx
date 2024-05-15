@@ -4,7 +4,7 @@ import axios from "axios";
 import { apiData } from "../../../../provider/Api";
 import { useContext } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
-import { useState } from "react";
+
 import LoadingX from "../../../tools/loading/LoadingX";
 import { useQuery } from "@tanstack/react-query";
 import Aos from "aos";
@@ -13,9 +13,14 @@ import "aos/dist/aos.css";
 const Food_Request = () => {
     
     const {user} = useContext(AuthContext);
-
+   
+    useEffect(() => {Aos.init();}, []);
+      
+      useEffect(() => {
+          document.title = "Food Request | ReFork";
+        }, []);
   
-     const { isLoading, refetch, data:requestedFood=[]} = useQuery({
+     const { isLoading, data:requestedFood=[]} = useQuery({
     
         queryKey: ["myfood"],
         queryFn: async () => {
@@ -42,11 +47,7 @@ const Food_Request = () => {
       if(isLoading) {
         return <LoadingX></LoadingX>
       }
-      useEffect(() => {Aos.init();}, []);
       
-      useEffect(() => {
-          document.title = "Food Request | ReFork";
-        }, []);
 
     return (
         <div data-aos="zoom-in-left" className=" flex justify-center my-10  items-center mx-auto">

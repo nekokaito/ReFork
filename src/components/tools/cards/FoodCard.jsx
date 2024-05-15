@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import ReactShowMoreText from "react-show-more-text";
 import { FaLocationArrow } from "react-icons/fa6";

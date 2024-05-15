@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import FoodCard from "../cards/FoodCard";
 
 const Slider = ({foods}) => {
-    // const ar = [{num: 1},{num: 2},{num: 3},{num: 4},{num: 5},{num: 6},{num: 7}]
-    // const dup = [...ar, ...ar]
+  
     return (
         
         <div className="relative mx-10 overflow-hidden">
@@ -13,7 +13,7 @@ const Slider = ({foods}) => {
             }
            
         </motion.div>
-         {/* <div key={i} style={{width: `${100/food.length}%`}} className=" flex-shrink-0"> <div className="flex items-center justify-center h-full">{k.num}</div></div> */}
+         
         </div>
     );
 };

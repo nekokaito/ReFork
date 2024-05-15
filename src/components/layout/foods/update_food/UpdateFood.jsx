@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import axios from 'axios';
 import { apiData } from "../../../../provider/Api";
-import toast from 'react-hot-toast';
 import {useParams } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -27,7 +26,7 @@ const UpdateFood = () => {
     } 
     dataLoad();
  } 
- ,[])
+ ,[_id])
  useEffect(() => {Aos.init();}, []);
 
 useEffect(() => {

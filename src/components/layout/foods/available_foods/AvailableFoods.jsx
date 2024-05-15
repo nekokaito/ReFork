@@ -13,13 +13,18 @@ import LoadingX from "../../../tools/loading/LoadingX";
 import Aos from "aos";
 import "aos/dist/aos.css";
 const AvailableFoods = () => {
+   
+    useEffect(() => {Aos.init();}, []);
 
+    useEffect(() => {
+        document.title = "Available Foods | ReFork";
+      }, []);
     
     const [layout, setLayout] = useState ('col3');
     const [searchQuery, setSearchQuery] = useState('');
     const [sortByExpiration, setSortByExpiration] = useState(true);
    
-   const { isLoading, refetch, data:foods=[] } = useQuery({
+   const { isLoading, data:foods=[] } = useQuery({
         queryKey: ["foods"],
         queryFn: async () => {
           const { data } = await axios.get(
@@ -59,11 +64,7 @@ const AvailableFoods = () => {
         return sortByExpiration === true ? dateA - dateB : dateB - dateA;
     });
   
-    useEffect(() => {Aos.init();}, []);
-
-    useEffect(() => {
-        document.title = "Available Foods | ReFork";
-      }, []);
+    
     return (
         <div data-aos="zoom-in" className="font-roboto">
             <div className="flex flex-col-reverse md:flex-row items-center my-10 justify-center gap-5">

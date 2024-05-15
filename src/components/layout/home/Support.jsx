@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Lottie from "lottie-react";
 import flower from "./flower.json"
 import Aos from "aos";

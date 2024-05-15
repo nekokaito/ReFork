@@ -10,7 +10,11 @@ import "aos/dist/aos.css";
 
 const Manage_Food = () => {
    const {user} = useContext(AuthContext);
-
+   useEffect(() => {Aos.init();}, []);
+  
+   useEffect(() => {
+     document.title = "Manage My Foods | ReFork";
+   }, []);
    
    const { isLoading, refetch, data:foods=[]} = useQuery({
     
@@ -39,11 +43,7 @@ const Manage_Food = () => {
   if(isLoading) {
     return <LoadingX></LoadingX>
   }
-  useEffect(() => {Aos.init();}, []);
-  
-  useEffect(() => {
-    document.title = "Manage My Foods | ReFork";
-  }, []);
+ 
     return (
         <div data-aos="zoom-in-down" className="my-10">
           <h1 className="text-4xl mb-10 font-jaro text-center">Manage My Food</h1>
