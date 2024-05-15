@@ -1,5 +1,7 @@
 # ReFork - Food Donation Website
 
+### Assignment_category_0007
+
 ## Project Overview
 ReFork is a web-based platform designed to facilitate food donations. Built with a modern tech stack including React, Express, Node.js, and MongoDB, ReFork aims to streamline the process of connecting donors with those in need. The project emphasizes security and efficiency, leveraging Firebase for secure login and JWT for token-based authentication. 
 
