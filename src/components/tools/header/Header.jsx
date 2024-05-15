@@ -2,6 +2,7 @@
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 	useEffect(() => {
@@ -19,8 +20,8 @@ const Header = () => {
 				<br  className="hidden md:inline lg:hidden" /> We are not just sharing meals, but also sharing hope, compassion, and support for our neighbors in need.
 			</p>
 			<div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-				<a rel="noopener noreferrer" href="#" className="px-8 py-3 text-lg font-semibold rounded bg-[#7ba3ff] hover:bg-[#6593ff] dark:text-gray-50 font-jaro">Join Now</a>
-				<a rel="noopener noreferrer" href="#" className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800 hover:text-[#6593ff] font-jaro">Contact Us</a>
+				<Link rel="noopener noreferrer" to="/add_food" className="px-8 py-3 text-lg font-semibold rounded bg-[#7ba3ff] hover:bg-[#6593ff] dark:text-gray-50 font-jaro">Join Now</Link>
+				<a rel="noopener noreferrer" href="#contact" className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800 hover:text-[#6593ff] font-jaro">Contact Us</a>
 			</div>
 		</div>
 		<div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
