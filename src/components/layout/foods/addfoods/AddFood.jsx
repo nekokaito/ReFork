@@ -3,6 +3,9 @@ import { AuthContext } from "../../../../provider/AuthProvider";
 import axios from 'axios';
 import { apiData } from "../../../../provider/Api";
 import toast from 'react-hot-toast';
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 const AddFood = () => {
 
    const {user} = useContext(AuthContext);
@@ -35,9 +38,13 @@ const AddFood = () => {
 		});
 	
      }
+	useEffect(() => {Aos.init();}, []);
+	useEffect(() => {
+		document.title = "Add Food | ReFork";
+}, []);
     
     return (
-        <div>
+        <div data-aos="flip-left">
             <section className="p-6 ">
 	<form onSubmit={handleSubmit} noValidate="" action="" className="container flex flex-col mx-auto space-y-12">
 		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">

@@ -1,10 +1,13 @@
 import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import { apiData } from "../../../../provider/Api";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 
 const SignUp = () => {
@@ -96,20 +99,24 @@ const SignUp = () => {
      })
          .catch (error => console.log(error))
       }
+      useEffect(() => {Aos.init();}, []);
 
+      useEffect(() => {
+          document.title = "Sign Up | ReFork";
+        }, []);
  
 
     return (
-        <div>
+        <div data-aos="flip-up">
             <div className="flex flex-col md:flex-row my-52 justify-center  gap-32">
                 <div>
                   <img className="w-[800px]" src="/love.png" alt="" />
                 </div>
                 <div className="p-10">
                 <div className="w-full max-w-md p-4 rounded-md shadow sm:p-8 bg-[#64748b41] text-white font-jaro">
-	<h2 className="mb-3 text-3xl font-semibold text-center">Login to your account</h2>
-	<p className="text-sm text-center dark:text-gray-600">Dont have account?
-		<a href="#" rel="noopener noreferrer" className="focus:underline hover:underline">Sign up here</a>
+	<h2 className="mb-3 text-3xl font-semibold text-center">Create your account</h2>
+	<p className="text-sm text-center dark:text-gray-600">Already have account?
+		<Link to="/login" rel="noopener noreferrer" className="focus:underline hover:underline">Login Here</Link>
 	</p>
 	<div className="my-6 space-y-4">
 		<button onClick={handleGoogleLogIn} aria-label="Login with Google" type="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 hover:bg-[#7ba3ff]">

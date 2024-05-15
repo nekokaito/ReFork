@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { apiData } from "../../../../provider/Api";
 import MyFoodTable from "../../../tools/table/MyFoodTable";
 import { AuthContext } from "../../../../provider/AuthProvider";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingX from "../../../tools/loading/LoadingX";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Manage_Food = () => {
    const {user} = useContext(AuthContext);
@@ -38,9 +39,13 @@ const Manage_Food = () => {
   if(isLoading) {
     return <LoadingX></LoadingX>
   }
-
+  useEffect(() => {Aos.init();}, []);
+  
+  useEffect(() => {
+    document.title = "Manage My Foods | ReFork";
+  }, []);
     return (
-        <div className="my-10">
+        <div data-aos="zoom-in-down" className="my-10">
           <h1 className="text-4xl mb-10 font-jaro text-center">Manage My Food</h1>
             <div className="container my-28 mx-auto">
             <div className="overflow-x-auto">

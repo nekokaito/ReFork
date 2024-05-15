@@ -6,6 +6,9 @@ import { AuthContext } from "../../../../provider/AuthProvider";
 import toast from 'react-hot-toast';
 import axios from "axios";
 import { apiData } from "../../../../provider/Api";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const Login = () => {
 
@@ -15,7 +18,11 @@ const Login = () => {
     const navigation = useNavigate();
     const [errorLogin, setErrorLogin] = useState('');
 
-    
+    useEffect(() => {Aos.init();}, []);
+
+useEffect(() => {
+    document.title = "Login | ReFork";
+  }, []);
     const handleLogIn = (e) => {
  
          e.preventDefault();
@@ -29,11 +36,9 @@ const Login = () => {
          .then (() => {
              const user = {email};
              axios.post(`${apiData}/jwt`, user, {withCredentials: true})
-             .then(res=> {
-                if(res.data.success) {
+             .then(()=> {
                 navigation(location?.state ? location.state : '/');
                 toast.success('Successfully Login!');
-                }
              })
              .catch(error => {
                 console.error('Error in Axios request:', error);
@@ -50,11 +55,9 @@ const Login = () => {
             const email = userData.user.email;
             const user = {email}
             axios.post(`${apiData}/jwt`, user, {withCredentials: true})
-            .then(res=> {
-               if(res.data.success) {
-               navigation(location?.state ? location.state : '/');
-               toast.success('Successfully Login!');
-               }
+            .then(()=> {
+                navigation(location?.state ? location.state : '/');
+                toast.success('Successfully Login!');
             })
             .catch(error => {
                console.error('Error in Axios request:', error);
@@ -81,7 +84,7 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div data-aos="zoom-in-left">
             <div className=" my-16 md:my-64 flex flex-col md:flex-row justify-center items-center gap-10 p-10">
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-[#64748b41] text-white font-jaro">
 	<h1 className="text-2xl font-bold text-center">Login</h1>

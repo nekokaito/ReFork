@@ -1,10 +1,14 @@
 import Lottie from "lottie-react";
 import flower from "./flower.json"
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 
 const Support = () => {
+    useEffect(() => {Aos.init();}, []);
     return (
-        <section className=" flex flex-col md:flex-row justify-evenly items-center">
+        <section data-aos="fade-right" className=" flex flex-col md:flex-row justify-evenly items-center">
             <div className=" w-96">
                 <Lottie animationData={flower} loop={true} />
             </div>

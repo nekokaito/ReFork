@@ -5,14 +5,19 @@ import { MdProductionQuantityLimits } from "react-icons/md";
 import { BsCalendar2Date } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const FoodCard = ({food}) => {
     const {_id , food_name, notes, location, food_image, date, status, quantity, user_name, user_photo} = food;
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-GB', options);
 
+    useEffect(() => {Aos.init();}, []);
     return (
-        <motion.div  initial={{ opacity: 1 }}
+        <motion.div data-aos="fade-up"
+        data-aos-anchor-placement="bottom-bottom"  initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} layout className="card  bg-[#64748b41] font-jaro">
   <figure className="p-6">

@@ -4,6 +4,10 @@ import axios from 'axios';
 import { apiData } from "../../../../provider/Api";
 import toast from 'react-hot-toast';
 import {useParams } from "react-router-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
+
+
 const UpdateFood = () => {
 
    const {user} = useContext(AuthContext);
@@ -24,7 +28,11 @@ const UpdateFood = () => {
     dataLoad();
  } 
  ,[])
+ useEffect(() => {Aos.init();}, []);
 
+useEffect(() => {
+    document.title = "Update | ReFork";
+  }, []);
 
  const {food_name, notes, location, food_image, date, status, quantity} = foods;
    
@@ -54,7 +62,7 @@ const UpdateFood = () => {
      }
     
     return (
-        <div>
+        <div data-aos="flip-up">
             <section className="p-6 ">
 	<form onSubmit={handleSubmit} noValidate="" action="" className="container flex flex-col mx-auto space-y-12">
 		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">

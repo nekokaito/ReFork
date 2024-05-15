@@ -7,7 +7,8 @@ import { AuthContext } from "../../../../provider/AuthProvider";
 import { useState } from "react";
 import LoadingX from "../../../tools/loading/LoadingX";
 import { useQuery } from "@tanstack/react-query";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Food_Request = () => {
     
@@ -41,10 +42,14 @@ const Food_Request = () => {
       if(isLoading) {
         return <LoadingX></LoadingX>
       }
-
+      useEffect(() => {Aos.init();}, []);
+      
+      useEffect(() => {
+          document.title = "Food Request | ReFork";
+        }, []);
 
     return (
-        <div className=" flex justify-center my-10  items-center mx-auto">
+        <div data-aos="zoom-in-left" className=" flex justify-center my-10  items-center mx-auto">
             {
                 requestedFood.length === 0? (
                     <div className="my-10 md:my-48 ">

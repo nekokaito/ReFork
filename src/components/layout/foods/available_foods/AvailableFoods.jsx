@@ -10,6 +10,8 @@ import { BsCalendarDate } from "react-icons/bs";
 import { TbMoodSearch } from "react-icons/tb";
 import { useQuery } from "@tanstack/react-query";
 import LoadingX from "../../../tools/loading/LoadingX";
+import Aos from "aos";
+import "aos/dist/aos.css";
 const AvailableFoods = () => {
 
     
@@ -56,10 +58,14 @@ const AvailableFoods = () => {
         const dateB = new Date(b.date);
         return sortByExpiration === true ? dateA - dateB : dateB - dateA;
     });
+  
+    useEffect(() => {Aos.init();}, []);
 
-  console.log(sortByExpiration);
+    useEffect(() => {
+        document.title = "Available Foods | ReFork";
+      }, []);
     return (
-        <div className="font-roboto">
+        <div data-aos="zoom-in" className="font-roboto">
             <div className="flex flex-col-reverse md:flex-row items-center my-10 justify-center gap-5">
             <div>
     <button onClick={changeLayout} className="btn bg-[#7ba3ff] text-white hover:bg-[#537ad4]">
