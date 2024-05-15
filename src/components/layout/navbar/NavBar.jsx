@@ -83,15 +83,17 @@ const NavBar = () => {
           onKeyDown={toggleDrawer(false)}
         >  
 		<div className='flex my-10 flex-col gap-5 font-jaro'>
+			<h1 className='font-jaro text-2xl px-4 -mb-1'>{user?.displayName}</h1>
 		<NavLink rel="noopener noreferrer" to="/" className={`flex items-center px-4 -mb-1 - ${ location.pathname === '/'? 'text-[#7ba3ff] ': 'text-black'}  `}>Home</NavLink>
 		<NavLink rel="noopener noreferrer" to="/available_foods" className={`flex items-center px-4 -mb-1  ${ location.pathname === '/available_foods'? 'text-[#7ba3ff] ': 'text-black'}  `}>Available</NavLink>
 		<NavLink rel="noopener noreferrer" to="/add_food" className={`flex items-center px-4 -mb-1   ${ location.pathname === '/add_food'? 'text-[#7ba3ff] ': 'text-black'}  `}>Add</NavLink>
     <NavLink rel="noopener noreferrer" to="/manage_food" className={`flex items-center px-4 -mb-1 ${ location.pathname === '/manage_food'? 'text-[#7ba3ff] ': 'text-black'}  `}>Manage</NavLink>
     <NavLink rel="noopener noreferrer" to="/request_food" className={`flex items-center px-4 -mb-1  ${ location.pathname === '/request_food'? 'text-[#7ba3ff] ': 'text-black'}  `}>Request</NavLink>
 	{
-		user? ('') : (<NavLink rel="noopener noreferrer" to="/login" className={`flex items-center px-4 -mb-1  ${ location.pathname === '/login'? 'text-[#7ba3ff] ': 'text-black'}  `}>Login</NavLink>)
+		!user?  (<NavLink rel="noopener noreferrer" to="/login" className={`flex items-center px-4 -mb-1  ${ location.pathname === '/login'? 'text-[#7ba3ff] ': 'text-black'}  `}>Login</NavLink>) : (<a rel="noopener noreferrer" onClick={logOut} className={`flex items-center px-4 -mb-1  ${ location.pathname === '/available_foods'? 'text-[#7ba3ff] ': 'text-black'}  `}>Log Out</a>)
 	}
-	
+	{/* 
+	 */}
 		</div>
 		
          
