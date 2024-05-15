@@ -24,8 +24,7 @@ const FoodItem = () => {
     ,[])
 
     return (
-        <div data-aos="fade-up"
-        data-aos-anchor-placement="bottom-bottom" className="mx-10 my-48">
+        <div className="mx-10 my-48">
             <div>
                 <Slider foods={foods}></Slider>
             </div>
